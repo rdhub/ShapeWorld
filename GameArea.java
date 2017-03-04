@@ -7,18 +7,18 @@ import javax.swing.*;
 public class GameArea extends JPanel
 {
 	//Constants
-	public static final int MAP_SIZE = 10000;
-	public static final int SCREEN_CENTER = 250;
-	public static final int SCREEN_CENTER_X = 250;
-	public static final int SCREEN_CENTER_Y = 250;
+	private static final int MAP_SIZE = 10000;
+	private  static final int SCREEN_CENTER = 250;
+	private static final int SCREEN_CENTER_X = 250;
+	private static final int SCREEN_CENTER_Y = 250;
 	
 	//UIComponents
-	public JButton hpButton, atkButton, wepButton, afButton;
+	private JButton hpButton, atkButton, wepButton, afButton;
 	
 	//Variables
-	public Image map, coin;
-	public int map_x, map_y;
-	public int 
+	private Image map, coin;
+	private int map_x, map_y;
+	
 	
 	
 	public GameArea()
