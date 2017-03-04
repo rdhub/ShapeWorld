@@ -1,0 +1,188 @@
+# Use this line at your own risk
+# * text=auto
+
+# Editor save files
+# (these should be in your gitignore)
+*~ text
+.*.sw[a-z] text
+\#* text
+.#* text
+
+# Text/Generic
+*.txt text
+*.rst text
+*.md text
+*.markdown text
+COPYING text
+COPYRIGHT text
+LICENSE text
+NOTICE text
+README text
+CHANGELIST text
+CODE_OF_CONDUCT text
+CONTRIBUTORS text
+NOTES text
+TODO text
+
+# patch/diff
+*.patch text
+*.diff text
+*.orig text
+
+# Vagrant
+Vagrantfile text
+
+# Docker
+Dockerfile text
+
+# Config
+*.conf text
+*.cfg text
+*.cnf text
+*.dat text
+*.csv text
+*.tsv text
+
+# Data
+*.json text
+*.yaml text
+*.yml text
+*.xml text
+
+# Archives
+*.xz -text
+*.gz -text
+*.z -text
+*.zip -text
+*.bzip -text
+*.bz -text
+*.bzip2 -text
+*.bz2 -text
+*.gzip -text
+*.ar -text
+*.lzma -text
+*.lzma2 -text
+*.tar -text
+
+# Images
+*.png -text
+*.jpg -text
+*.JPEG -text
+*.jpeg -text
+*.ico -text
+*.svg -text
+*.bmp -text
+*.tiff -text
+*.gif -text
+*.gifv -text
+
+# Documents
+*.pdf -text
+*.docx -text
+*.doc -text
+*.xlsx -text
+*.xls -text
+
+# LaTeX
+*.tex text
+*.sty text
+
+# Web
+*.js text
+*.css text
+*.html text
+*.htm text
+
+# PHP
+*.php text
+
+# Perl
+*.pl text
+*.t text
+
+# Ruby
+*.rb text
+*.gem -text
+*.erb text
+Gemfile text
+Gemfile.lock text
+*.gemspec text
+
+# Python
+*.py text
+*.pyd -text
+*.pyc -text
+*.jinja text
+*.jinja2 text
+*.whl -text
+*.egg -text
+
+# .NET
+*.asp text
+*.aspx text
+*.cs text
+*.csproj text
+*.nuget -text
+
+# WiX
+*.wixproj text
+*.wxs text
+*.wxi text
+*.loc text
+*.wixlib -text
+*.wixobj -text
+
+# NSIST
+*.nsi text
+
+# Clojure
+*.clj text
+*.cljs text
+*.edn text
+
+# Java
+*.java text
+*.class -text
+*.jar -text
+
+# Native
+*.c text
+*.cpp text
+*.cxx text
+*.o -text
+*.lib -text
+*.a -text
+*.dll -text
+*.exe -text
+*.cab -text
+*.cat -text
+*.sys -text
+*.so -text
+*.in text
+*.am text
+*.m4 text
+*.ac text
+*.proj text
+*.sln text
+Makefile text
+
+# Unix
+*.sh eol=lf
+*.awk eol=lf
+*.sed eol=lf
+*.deb -text
+*.rpm -text
+*.tcl eol=lf
+
+# Windows
+*.cmd text
+*.bat text
+*.ps1 text
+*.msi -text
+*.msu -text
+
+# SaltStack
+*.sls text
+
+# Puppet
+*.pp text
