@@ -1,30 +1,33 @@
 public class Opponent
 {
-	private int maxHealth, remainingHealth, power;
+	private int maxHealth, remainingHealth, attack;
+	private int xPos, yPos, hitBox;
 	
 	public Opponent()
 	{
+		xPos = yPos = 0;
+		hitBox = 20;
 		maxHealth = 0;
 		remainingHealth = 0;
-		power = 0;
+		attack = 0;
 	}
 	
-	public Opponent(int h, int p)
+	public Opponent(int h, int a)
 	{
 		this();
 		maxHealth = h;
 		remainingHealth = maxHealth;
-		power = p;
+		attack = a;
 	}
 	
-	public void setPower(int p)
+	public void setAttack(int a)
 	{
-		power = p;
+		attack = a;
 	}
 	
-	public int getPower()
+	public int getAttack()
 	{
-		return power;
+		return attack;
 	}
 	
 	public void setMaxHealth(int h)
@@ -45,5 +48,10 @@ public class Opponent
 	public int getRemainingHealth()
 	{
 		return remainingHealth;
+	}
+	
+	public boolean isDamaged()
+	{
+		return remainingHealth < maxHealth;
 	}
 }
