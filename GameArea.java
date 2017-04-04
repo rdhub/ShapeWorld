@@ -51,9 +51,9 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 		this.add(afButton);
 		
 		this.addKeyListener(this);
-		this.requestFocus();
 		this.addMouseMotionListener(this);
 		this.addMouseListener(this);
+		this.requestFocus();
 	}
 	
 	public void paintComponent(Graphics g)
@@ -64,6 +64,11 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 		
 		g.setColor(Color.black);
 		g.fillRect(player.getPlayerX(), player.getPlayerY(), player.getPlayerWidth(), player.getPlayerHeight());
+		
+		g.setColor(Color.white);
+		g.fillRect(505,0,195,500);
+		g.setColor(Color.black);
+		g.fillRect(500,0,5,500);
 		
 		for (int i = 0; i < game.getNumberOfShots(); i++)
 		{
@@ -119,7 +124,6 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 			moveRight = false;
 	}
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("click");
 		game.shotFired(e.getX(), e.getY());
 	}
 	public void mousePressed(MouseEvent e) {}

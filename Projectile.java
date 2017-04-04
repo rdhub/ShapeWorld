@@ -12,7 +12,7 @@ public class Projectile
 	{
 		targetX = targetY = 0;
 		dx = dy = dist = 0;
-		speed = 2;
+		speed = 3;
 		size = 10;
 	}
 	

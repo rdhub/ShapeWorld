@@ -117,7 +117,6 @@ public class ShapeWorld {
 	
 	public void shotFired(int targetX, int targetY)
 	{
-		System.out.println(shots.size());
 		Projectile shot = new Projectile(player.getPlayerX() + player.getPlayerWidth()/2, player.getPlayerY() + player.getPlayerHeight()/2, null);
 		shot.setTargetX(targetX);
 		shot.setTargetY(targetY);
