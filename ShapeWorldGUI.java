@@ -1,6 +1,6 @@
 //Richard Du
 //Created: 03/03/2017
-//ShapeWorld.java
+//ShapeWorldGUI.java
 //Updated Code Structure from Game.java
 
 import java.awt.*;

@@ -15,6 +15,7 @@ public class GameArea extends JPanel implements ActionListener
 	
 	//Variables
 	private ShapeWorld game;
+	private Player player;
 	private Image map, coin;
 	private int map_x, map_y;
 	
@@ -23,7 +24,7 @@ public class GameArea extends JPanel implements ActionListener
 		this.setLayout(null);
 		
 		game = new ShapeWorld(SCREEN_CENTER_X, SCREEN_CENTER_Y);
-		
+		player = game.getPlayer();
 		map_x = map_y = SCREEN_CENTER - MAP_SIZE/2;
 		this.map = map;
 		this.coin = coin;
@@ -56,7 +57,7 @@ public class GameArea extends JPanel implements ActionListener
 		g.drawImage(map, map_x, map_y, MAP_SIZE, MAP_SIZE, this);
 		
 		g.setColor(Color.black);
-		g.fillRect(game.getPlayerX(), game.getPlayerY(), game.getPlayerWidth(), game.getPlayerHeight());
+		g.fillRect(player.getPlayerX(), player.getPlayerY(), player.getPlayerWidth(), player.getPlayerHeight());
 		
 	}
 	
