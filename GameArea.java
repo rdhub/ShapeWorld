@@ -2,7 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GameArea extends JPanel implements ActionListener, KeyListener
+public class GameArea extends JPanel implements ActionListener, KeyListener, MouseListener, MouseMotionListener
 {
 	//Constants
 	private static final int SCREEN_CENTER = 250;
@@ -52,6 +52,8 @@ public class GameArea extends JPanel implements ActionListener, KeyListener
 		
 		this.addKeyListener(this);
 		this.requestFocus();
+		this.addMouseMotionListener(this);
+		this.addMouseListener(this);
 	}
 	
 	public void paintComponent(Graphics g)
@@ -62,6 +64,11 @@ public class GameArea extends JPanel implements ActionListener, KeyListener
 		
 		g.setColor(Color.black);
 		g.fillRect(player.getPlayerX(), player.getPlayerY(), player.getPlayerWidth(), player.getPlayerHeight());
+		
+		for (int i = 0; i < game.getNumberOfShots(); i++)
+		{
+			g.fillOval(game.getShotX(i), game.getShotY(i), 10, 10);
+		}
 		
 	}
 	
@@ -75,6 +82,8 @@ public class GameArea extends JPanel implements ActionListener, KeyListener
 			game.updateCoords(5, 0);
 		if(moveRight)
 			game.updateCoords(-5, 0);
+			
+		game.updateShots();
 		this.repaint();
 	}
 	
@@ -109,4 +118,14 @@ public class GameArea extends JPanel implements ActionListener, KeyListener
 		if(e.getKeyChar()=='d')
 			moveRight = false;
 	}
+	public void mouseClicked(MouseEvent e) {
+		System.out.println("click");
+		game.shotFired(e.getX(), e.getY());
+	}
+	public void mousePressed(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {}
+	public void mouseMoved(MouseEvent e) {}
+	public void mouseDragged(MouseEvent e) {}
 }

@@ -114,4 +114,44 @@ public class ShapeWorld {
 	{
 		map_y += dy;
 	}
+	
+	public void shotFired(int targetX, int targetY)
+	{
+		System.out.println(shots.size());
+		Projectile shot = new Projectile(player.getPlayerX() + player.getPlayerWidth()/2, player.getPlayerY() + player.getPlayerHeight()/2, null);
+		shot.setTargetX(targetX);
+		shot.setTargetY(targetY);
+		shot.calculate();
+		shots.add(shot);
+		
+	}
+	
+	public int getNumberOfShots()
+	{
+		return shots.size();
+	}
+	
+	public void updateShots()
+	{
+		for (int i = shots.size() - 1; i >= 0; i--)
+		{
+			Projectile shot = shots.get(i);
+			shot.updateCoords();
+			
+			//Remove if shot goes out of screen
+			if(shot.getXPosition() < mapLeftEdge || shot.getXPosition() > screenSize || shot.getYPosition() < mapTopEdge || shot.getYPosition() > screenSize)
+				shots.remove(i);
+		}
+	}
+	
+	public int getShotX(int index)
+	{
+		return (int)Math.round(shots.get(index).getXPosition());
+	}
+	
+	public int getShotY(int index)
+	{
+		return (int)Math.round(shots.get(index).getYPosition());
+	}
+	
 }

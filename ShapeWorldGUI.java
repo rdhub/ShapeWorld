@@ -50,10 +50,6 @@ public class ShapeWorldGUI extends JApplet implements KeyListener, MouseListener
 		//~ endscreen = new Finish();
 		//~ c.add(endscreen, "EndScreen");
 		
-		canvas.addKeyListener(this);
-		canvas.addMouseListener(this);
-		canvas.addMouseMotionListener(this);
-		canvas.requestFocus();
 	}
 	
 	public void WaitForImage ( JApplet component, Image image )
