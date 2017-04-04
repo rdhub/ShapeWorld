@@ -2,47 +2,118 @@ import java.util.*;
 
 public class ShapeWorld {
 	
+	private static final int MAP_SIZE = 10000;
+	
 	private ArrayList<Projectile> shots;
-	private int player_X, player_Y;
-	private int player_height, player_width;
-	private int wepReloadSpeed;
-	
-	public ShapeWorld(int centerX, int centerY)
+	private Player player;
+	private int map_x, map_y;
+	private int screenCenter, screenSize;
+	private int mapLeftEdge, mapTopEdge, mapBotEdge, mapRightEdge;
+
+	public ShapeWorld(int centerX, int centerY, int center)
 	{
+		player = new Player(centerX, centerY);
 		shots = new ArrayList<Projectile>();
-		player_X = centerX;
-		player_Y = centerY;
-		player_height = player_width = 30;
-		wepReloadSpeed = 1000;
+		map_x = map_y = center - MAP_SIZE/2;
+		screenCenter = center;
+		screenSize = center*2;
+		mapLeftEdge = mapTopEdge = 0;
+		mapBotEdge = mapRightEdge = -(MAP_SIZE - screenSize);
 	}
 	
-	public int getWepReloadSpeed()
+	public Player getPlayer()
 	{
-		return wepReloadSpeed;
+		return player;
 	}
 	
-	public void decreaseWepReloadSpeed()
+	public int getMapX()
 	{
-		wepReloadSpeed -= 100;
+		return map_x;
 	}
 	
-	public int getPlayerX()
+	public int getMapY()
 	{
-		return player_X;
+		return map_y;
 	}
 	
-	public int getPlayerY()
+	public int getMapSize()
 	{
-		return player_Y;
+		return MAP_SIZE;
 	}
 	
-	public int getPlayerHeight()
+	public void updateCoords(int dx, int dy)
 	{
-		return player_height;
+		int playerXCenterPos = screenCenter - player.getPlayerWidth()/2;
+		int playerYCenterPos = screenCenter - player.getPlayerHeight()/2;
+		int playerX = player.getPlayerX();
+		int playerY = player.getPlayerY();
+		
+		if(dy > 0) //moving up
+		{
+			if(map_y + dy < mapTopEdge && playerY == playerYCenterPos)
+			{
+				map_y += dy;
+			}
+			else
+			{
+				if(playerY - dy >= mapTopEdge)
+					player.updatePlayerY(-dy);
+				else
+					player.setPlayerY(mapTopEdge); //set playerY to edge value
+			}
+		}
+		if(dy < 0) //moving down
+		{
+			System.out.printf("yCenterPos: %d, playerY: %d\n", playerYCenterPos, playerY);
+			if(map_y + dy > mapBotEdge && playerY == playerYCenterPos)
+			{
+				map_y += dy;
+			}
+			else
+			{
+				if(playerY + player.getPlayerHeight() - dy <= screenSize)
+					player.updatePlayerY(-dy);
+				else
+					player.setPlayerY(screenSize - player.getPlayerHeight()); //set playerY to edge value
+			}
+		}
+		if(dx > 0) //moving left
+		{
+			System.out.println(playerXCenterPos);
+			if(map_x + dx < mapLeftEdge && playerX == playerXCenterPos)
+			{
+				map_x += dx;
+			}
+			else
+			{
+				if(playerX - dx >= mapLeftEdge)
+					player.updatePlayerX(-dx);
+				else
+					player.setPlayerX(mapLeftEdge); //set playerX to edge value
+			}
+		}
+		if(dx < 0) //moving right
+		{
+			if(map_x + dx > mapRightEdge && playerX == playerXCenterPos)
+			{
+				map_x += dx;
+			}
+			else
+			{
+				if(playerX + player.getPlayerWidth() - dx <= screenSize)
+					player.updatePlayerX(-dx);
+				else
+					player.setPlayerX(screenSize - player.getPlayerWidth()); //set playerX to edge value
+			}
+		}
+	}
+	public void updateMapX(int dx)
+	{
+		map_x += dx;
 	}
 	
-	public int getPlayerWidth()
+	public void updateMapY(int dy)
 	{
-		return player_width;
+		map_y += dy;
 	}
 }
