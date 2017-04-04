@@ -60,16 +60,20 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 	{
 		super.paintComponent(g);
 		
+		//Draws the map
 		g.drawImage(map, game.getMapX(), game.getMapY(), game.getMapSize(), game.getMapSize(), this);
 		
+		//Draws the player
 		g.setColor(Color.black);
 		g.fillRect(player.getPlayerX(), player.getPlayerY(), player.getPlayerWidth(), player.getPlayerHeight());
 		
+		// Draws the right side upgrade panel
 		g.setColor(Color.white);
 		g.fillRect(505,0,195,500);
 		g.setColor(Color.black);
 		g.fillRect(500,0,5,500);
 		
+		//Draws the shots fired from the player
 		for (int i = 0; i < game.getNumberOfShots(); i++)
 		{
 			g.fillOval(game.getShotX(i), game.getShotY(i), 10, 10);
@@ -79,6 +83,8 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 	
 	
 	public void actionPerformed(ActionEvent e) {
+		
+		//Checks which direction player is currently moving in
 		if(moveUp)
 			game.updateCoords(0, 5);
 		if(moveDown)
@@ -95,6 +101,8 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 	public void keyPressed(KeyEvent e) {}
 	public void keyTyped(KeyEvent e){
 		char character = e.getKeyChar();
+		
+		//Checks which way player is moving
 		switch(character)
 		{
 			case 's':
@@ -110,7 +118,6 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 				moveLeft = true;
 				break;
 		}
-		this.repaint();
 	}
 	public void keyReleased(KeyEvent e) {
 		//Checks which key to stop movement
@@ -124,6 +131,8 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 			moveRight = false;
 	}
 	public void mouseClicked(MouseEvent e) {
+		
+		//Fires a shot
 		game.shotFired(e.getX(), e.getY());
 	}
 	public void mousePressed(MouseEvent e) {}

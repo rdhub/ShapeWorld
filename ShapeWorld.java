@@ -50,11 +50,12 @@ public class ShapeWorld {
 		
 		if(dy > 0) //moving up
 		{
+			// Moves position of the map
 			if(map_y + dy < mapTopEdge && playerY == playerYCenterPos)
 			{
 				map_y += dy;
 			}
-			else
+			else//Moves the player position
 			{
 				if(playerY - dy >= mapTopEdge)
 					player.updatePlayerY(-dy);
@@ -64,11 +65,12 @@ public class ShapeWorld {
 		}
 		if(dy < 0) //moving down
 		{
+			// Moves position of the map
 			if(map_y + dy > mapBotEdge && playerY == playerYCenterPos)
 			{
 				map_y += dy;
 			}
-			else
+			else//Moves the player position
 			{
 				if(playerY + player.getPlayerHeight() - dy <= screenSize)
 					player.updatePlayerY(-dy);
@@ -78,11 +80,12 @@ public class ShapeWorld {
 		}
 		if(dx > 0) //moving left
 		{
+			// Moves position of the map
 			if(map_x + dx < mapLeftEdge && playerX == playerXCenterPos)
 			{
 				map_x += dx;
 			}
-			else
+			else //Moves the player position
 			{
 				if(playerX - dx >= mapLeftEdge)
 					player.updatePlayerX(-dx);
@@ -92,11 +95,12 @@ public class ShapeWorld {
 		}
 		if(dx < 0) //moving right
 		{
+			// Moves position of the map
 			if(map_x + dx > mapRightEdge && playerX == playerXCenterPos)
 			{
 				map_x += dx;
 			}
-			else
+			else//Moves the player position
 			{
 				if(playerX + player.getPlayerWidth() - dx <= screenSize)
 					player.updatePlayerX(-dx);
@@ -105,16 +109,8 @@ public class ShapeWorld {
 			}
 		}
 	}
-	public void updateMapX(int dx)
-	{
-		map_x += dx;
-	}
 	
-	public void updateMapY(int dy)
-	{
-		map_y += dy;
-	}
-	
+	// Creates a new shot
 	public void shotFired(int targetX, int targetY)
 	{
 		Projectile shot = new Projectile(player.getPlayerX() + player.getPlayerWidth()/2, player.getPlayerY() + player.getPlayerHeight()/2, null);
@@ -142,12 +138,13 @@ public class ShapeWorld {
 				shots.remove(i);
 		}
 	}
-	
+	// Returns x position of the shot
 	public int getShotX(int index)
 	{
 		return (int)Math.round(shots.get(index).getXPosition());
 	}
 	
+	// returns y position of the shot
 	public int getShotY(int index)
 	{
 		return (int)Math.round(shots.get(index).getYPosition());

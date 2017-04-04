@@ -14,6 +14,7 @@ public class Player
 		player_height = player_width = 30;
 		wepReloadSpeed = 1000;
 		
+		// Centers the player on the center of the screen
 		this.player_X = player_X - player_width/2;
 		this.player_Y = player_Y - player_height/2;
 	}
