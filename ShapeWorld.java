@@ -64,7 +64,6 @@ public class ShapeWorld {
 		}
 		if(dy < 0) //moving down
 		{
-			System.out.printf("yCenterPos: %d, playerY: %d\n", playerYCenterPos, playerY);
 			if(map_y + dy > mapBotEdge && playerY == playerYCenterPos)
 			{
 				map_y += dy;
@@ -79,7 +78,6 @@ public class ShapeWorld {
 		}
 		if(dx > 0) //moving left
 		{
-			System.out.println(playerXCenterPos);
 			if(map_x + dx < mapLeftEdge && playerX == playerXCenterPos)
 			{
 				map_x += dx;
