@@ -27,10 +27,10 @@ public class ShapeWorld extends JApplet implements KeyListener, MouseListener,
 	//Initializes and adds the panels. Gets the images
 	public void init()
 	{
-		//~ map = getImage(getDocumentBase(), "Map.jpg");
-		//~ WaitForImage(this, map);
-		//~ coin = getImage( getDocumentBase ( ), "Coin.png");
-		//~ WaitForImage ( this, coin );
+		map = getImage(getDocumentBase(), "Map.jpg");
+		WaitForImage(this, map);
+		coin = getImage( getDocumentBase ( ), "Coin.png");
+		WaitForImage ( this, coin );
 		title = getImage( getDocumentBase ( ), "Title.png");
 		WaitForImage ( this, title );
 		eyes = getImage( getDocumentBase ( ), "Eyes.png");
@@ -43,8 +43,9 @@ public class ShapeWorld extends JApplet implements KeyListener, MouseListener,
 		//~ menu = new MainMeu();
 		//~ c.add(menu, "MainMenu");
 		
-		canvas = new GameArea();c.add(canvas, "GamePanel");
-		c.add(canvas, "GamePael");
+		canvas = new GameArea(map, coin);
+		c.add(canvas, "GamePanel");
+		
 		
 		//~ endscreen = new Finish();
 		//~ c.add(endscreen, "EndScreen");

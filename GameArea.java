@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GameArea extends JPanel
+public class GameArea extends JPanel implements ActionListener
 {
 	//Constants
 	private static final int MAP_SIZE = 10000;
@@ -21,15 +21,13 @@ public class GameArea extends JPanel
 	
 	
 	
-	public GameArea()
+	public GameArea(Image map, Image coin)
 	{
 		this.setLayout(null);
 		
 		map_x = map_y = SCREEN_CENTER-MAP_SIZE/2;
-		map = getImage(getDocumentBase(), "Map.jpg");
-		WaitForImage(this, map);
-		coin = getImage( getDocumentBase ( ), "Coin.png");
-		WaitForImage ( this, coin );
+		this.map = map;
+		this.coin = coin;
 		
 		hpButton = new JButton("Health + 5");
 		hpButton.setBounds(520, 320, 110, 20);
@@ -47,23 +45,9 @@ public class GameArea extends JPanel
 		this.add(wepButton);
 		
 		afButton = new JButton("Autofire");
-		afButton.seBounds(520, 455, 110, 20);
+		afButton.setBounds(520, 455, 110, 20);
 		afButton.addActionListener(this);
 		this.add(afButton);
-	}
-	
-	public void WaitForImage ( JApplet component, Image image )
-	{
-		MediaTracker tracker = new MediaTracker ( component );
-		try
-		{
-			tracker.addImage ( image, 0 );
-			tracker.waitForID ( 0 );
-		}
-		catch ( InterruptedException e )
-		{
-			e.printStackTrace ( );
-		}
 	}
 	
 	public void paintComponent(Graphics g)
@@ -73,5 +57,8 @@ public class GameArea extends JPanel
 		g.drawImage(map, map_x, map_y, MAP_SIZE, MAP_SIZE, this);
 		
 		
+	}
+	
+	public void actionPerformed(ActionEvent e) {
 	}
 }
