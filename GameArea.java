@@ -1,5 +1,3 @@
-
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -18,8 +16,6 @@ public class GameArea extends JPanel implements ActionListener
 	//Variables
 	private Image map, coin;
 	private int map_x, map_y;
-	
-	
 	
 	public GameArea(Image map, Image coin)
 	{
