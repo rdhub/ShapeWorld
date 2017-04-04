@@ -11,10 +11,11 @@ public class Player
 		currentExp = 0;
 		nextLevelExp = 25;
 		currentHp = maxHp = 100;
-		this.player_X = player_X;
-		this.player_Y = player_Y;
 		player_height = player_width = 30;
 		wepReloadSpeed = 1000;
+		
+		this.player_X = player_X - player_width/2;
+		this.player_Y = player_Y - player_height/2;
 	}
 	
 	public int getWepReloadSpeed()
@@ -75,5 +76,15 @@ public class Player
 	public void updatePlayerY(int dy)
 	{
 		player_Y += dy;
+	}
+	
+	public void setPlayerX(int x)
+	{
+		player_X = x;
+	}
+	
+	public void setPlayerY(int y)
+	{
+		player_Y = y;
 	}
 }

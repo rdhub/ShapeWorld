@@ -2,10 +2,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GameArea extends JPanel implements ActionListener
+public class GameArea extends JPanel implements ActionListener, KeyListener
 {
 	//Constants
-	private static final int MAP_SIZE = 10000;
 	private static final int SCREEN_CENTER = 250;
 	private static final int SCREEN_CENTER_X = 250;
 	private static final int SCREEN_CENTER_Y = 250;
@@ -17,15 +16,17 @@ public class GameArea extends JPanel implements ActionListener
 	private ShapeWorld game;
 	private Player player;
 	private Image map, coin;
-	private int map_x, map_y;
+	private boolean moveUp, moveDown, moveLeft, moveRight;
+	private Timer timer;
 	
 	public GameArea(Image map, Image coin)
 	{
 		this.setLayout(null);
 		
-		game = new ShapeWorld(SCREEN_CENTER_X, SCREEN_CENTER_Y);
+		game = new ShapeWorld(SCREEN_CENTER_X, SCREEN_CENTER_Y, SCREEN_CENTER);
+		timer = new Timer(5, this);
+		timer.start();
 		player = game.getPlayer();
-		map_x = map_y = SCREEN_CENTER - MAP_SIZE/2;
 		this.map = map;
 		this.coin = coin;
 		
@@ -48,13 +49,16 @@ public class GameArea extends JPanel implements ActionListener
 		afButton.setBounds(520, 455, 110, 20);
 		afButton.addActionListener(this);
 		this.add(afButton);
+		
+		this.addKeyListener(this);
+		this.requestFocus();
 	}
 	
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
 		
-		g.drawImage(map, map_x, map_y, MAP_SIZE, MAP_SIZE, this);
+		g.drawImage(map, game.getMapX(), game.getMapY(), game.getMapSize(), game.getMapSize(), this);
 		
 		g.setColor(Color.black);
 		g.fillRect(player.getPlayerX(), player.getPlayerY(), player.getPlayerWidth(), player.getPlayerHeight());
@@ -63,5 +67,46 @@ public class GameArea extends JPanel implements ActionListener
 	
 	
 	public void actionPerformed(ActionEvent e) {
+		if(moveUp)
+			game.updateCoords(0, 5);
+		if(moveDown)
+			game.updateCoords(0, -5);
+		if(moveLeft)
+			game.updateCoords(5, 0);
+		if(moveRight)
+			game.updateCoords(-5, 0);
+		this.repaint();
+	}
+	
+	public void keyPressed(KeyEvent e) {}
+	public void keyTyped(KeyEvent e){
+		char character = e.getKeyChar();
+		switch(character)
+		{
+			case 's':
+				moveDown = true;
+				break;
+			case 'd':
+				moveRight = true;
+				break;
+			case 'w':
+				moveUp = true;
+				break;
+			case 'a':
+				moveLeft = true;
+				break;
+		}
+		this.repaint();
+	}
+	public void keyReleased(KeyEvent e) {
+		//Checks which key to stop movement
+		if(e.getKeyChar()=='w')
+			moveUp = false;
+		if(e.getKeyChar()=='a')
+			moveLeft = false;
+		if(e.getKeyChar()=='s')
+			moveDown = false;
+		if(e.getKeyChar()=='d')
+			moveRight = false;
 	}
 }
