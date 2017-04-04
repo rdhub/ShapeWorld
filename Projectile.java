@@ -2,7 +2,7 @@ import javafx.scene.image.*;
 
 public class Projectile
 {
-	private double centerX, centerY;
+	private double xPosition, yPosition;
 	private double targetX, targetY;
 	private double dx, dy, dist, speed;
 	private int size;
@@ -16,57 +16,55 @@ public class Projectile
 		size = 10;
 	}
 	
-	public Projectile(double centerX, double centerY, Image im)
+	public Projectile(double xPosition, double yPosition, Image im)
 	{
 		this();
-		this.centerX = centerX;
-		this.centerY = centerY;
-		speed = 2;
-		size = 10;
+		this.xPosition = xPosition - size/2;
+		this.yPosition = yPosition - size/2;
 		image = im;
 	}
 	
 	public void setTargetX(double targetX)
 	{
-		this.targetX = targetX;
+		this.targetX = targetX - size/2;
 	}
 	
 	public void setTargetY(double targetY)
 	{
-		this.targetY = targetY;
+		this.targetY = targetY - size/2; // Centers the shot
 	}
 	public void calculate()
 	{
-		double diffX = targetX-centerX;
-		double diffY = targetY-centerY;
+		double diffX = targetX - xPosition;
+		double diffY = targetY - yPosition;
 		dist = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
 		dx = diffX/dist*speed;
 		dy = diffY/dist*speed;
 	}
 	public void updateCoords()
 	{
-		centerX += dx;
-		centerY += dy;
+		xPosition += dx;
+		yPosition += dy;
 	}
 	
-	public void setCenterX(double x)
+	public void setXPosition(double x)
 	{
-		centerX = x;
+		xPosition = x;
 	}
 	
-	public void setCenterY(double y)
+	public void setYPosition(double y)
 	{
-		centerY = y;
+		yPosition = y;
 	}
 	
-	public double getCenterX()
+	public double getXPosition()
 	{
-		return centerX;
+		return xPosition;
 	}
 	
-	public double getCenterY()
+	public double getYPosition()
 	{
-		return centerY;
+		return yPosition;
 	}
 	
 	public void setSpeed(int speed)
