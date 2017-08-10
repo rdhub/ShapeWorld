@@ -13,7 +13,7 @@ public class Player
 		nextLevelExp = 25;
 		currentHp = maxHp = 100;
 		player_height = player_width = 30;
-		wepReloadSpeed = 1000;
+		wepReloadSpeed = 500;
 		
 		// Centers the player on the center of the screen
 		this.player_X = player_X - player_width/2;

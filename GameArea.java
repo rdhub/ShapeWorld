@@ -76,11 +76,7 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 		g.setColor(Color.black);
 		g.fillRect(player.getPlayerX(), player.getPlayerY(), player.getPlayerWidth(), player.getPlayerHeight());
 		
-		// Draws the right side upgrade panel
-		g.setColor(Color.white);
-		g.fillRect(505,0,195,500);
-		g.setColor(Color.black);
-		g.fillRect(500,0,5,500);
+		
 		
 		//Draws the shots fired from the player
 		for (int i = 0; i < game.getNumberOfShots(); i++)
@@ -88,6 +84,11 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 			g.fillOval(game.getShotX(i), game.getShotY(i), 10, 10);
 		}
 		
+		// Draws the right side upgrade panel
+		g.setColor(Color.white);
+		g.fillRect(505,0,195,500);
+		g.setColor(Color.black);
+		g.fillRect(500,0,5,500);
 	}
 	
 	

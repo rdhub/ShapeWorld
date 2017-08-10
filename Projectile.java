@@ -4,26 +4,36 @@ public class Projectile
 {
 	private double xPosition, yPosition;
 	private double targetX, targetY;
-	private double dx, dy, dist, speed;
+	private double dx, dy, dist, speed, travelDist, maxTravelDist;
 	private int size;
 	private Image image;
 	
 	public Projectile()
 	{
 		targetX = targetY = 0;
-		dx = dy = dist = 0;
+		dx = dy = dist = travelDist = 0;
 		speed = 3;
 		size = 10;
 	}
 	
-	public Projectile(double xPosition, double yPosition, Image im)
+	public Projectile(double xPosition, double yPosition, Image im, double maxShotDist)
 	{
 		this();
 		this.xPosition = xPosition - size/2;
 		this.yPosition = yPosition - size/2;
 		image = im;
+		maxTravelDist = maxShotDist;
 	}
 	
+	public double getTravelDist()
+	{
+		return travelDist;
+	}
+	
+	public void updateTravelDist(double dist)
+	{
+		travelDist += dist;
+	}
 	public void setTargetX(double targetX)
 	{
 		this.targetX = targetX - size/2;
@@ -45,6 +55,7 @@ public class Projectile
 	{
 		xPosition += dx;
 		yPosition += dy;
+		updateTravelDist(Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)));
 	}
 	
 	public void setXPosition(double x)
@@ -90,5 +101,10 @@ public class Projectile
 	public Image getImage()
 	{
 		return image;
+	}
+	
+	public boolean isAtMaxShotDist()
+	{
+		return travelDist >= maxTravelDist;
 	}
 }

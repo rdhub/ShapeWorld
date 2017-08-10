@@ -113,7 +113,7 @@ public class ShapeWorld {
 	// Creates a new shot
 	public void shotFired(int targetX, int targetY)
 	{
-		Projectile shot = new Projectile(player.getPlayerX() + player.getPlayerWidth()/2, player.getPlayerY() + player.getPlayerHeight()/2, null);
+		Projectile shot = new Projectile(player.getPlayerX() + player.getPlayerWidth()/2, player.getPlayerY() + player.getPlayerHeight()/2, null, screenSize/2*Math.sqrt(2));
 		shot.setTargetX(targetX);
 		shot.setTargetY(targetY);
 		shot.calculate();
@@ -132,8 +132,8 @@ public class ShapeWorld {
 			Projectile shot = shots.get(i);
 			shot.updateCoords();
 			
-			//Remove if shot goes out of screen
-			if(shot.getXPosition() < mapLeftEdge || shot.getXPosition() > screenSize || shot.getYPosition() < mapTopEdge || shot.getYPosition() > screenSize)
+			//Remove if shot reaches its max travel distance
+			if(shot.isAtMaxShotDist())
 				shots.remove(i);
 		}
 	}
