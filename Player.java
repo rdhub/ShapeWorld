@@ -2,12 +2,13 @@ public class Player
 {
 	private int player_X, player_Y;
 	private int player_height, player_width;
-	private int wepReloadSpeed;
+	private int wepReloadSpeed, remainingReloadTime;
 	private int maxHp, currentHp;
 	private int currentExp, nextLevelExp;
 	
 	public Player(int player_X, int player_Y)
 	{
+		remainingReloadTime = 0;
 		currentExp = 0;
 		nextLevelExp = 25;
 		currentHp = maxHp = 100;
@@ -17,6 +18,22 @@ public class Player
 		// Centers the player on the center of the screen
 		this.player_X = player_X - player_width/2;
 		this.player_Y = player_Y - player_height/2;
+	}
+	
+	public int getRemainingReloadTime()
+	{
+		return remainingReloadTime;
+	}
+	
+	public void setRemainingReloadTime(int time)
+	{
+		remainingReloadTime = time;
+	}
+	
+	public void decreaseRemainingReloadTime(int time)
+	{
+		if(remainingReloadTime > 0)
+			remainingReloadTime -= time;
 	}
 	
 	public int getWepReloadSpeed()

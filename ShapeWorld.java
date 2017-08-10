@@ -118,7 +118,6 @@ public class ShapeWorld {
 		shot.setTargetY(targetY);
 		shot.calculate();
 		shots.add(shot);
-		
 	}
 	
 	public int getNumberOfShots()

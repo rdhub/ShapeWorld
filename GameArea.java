@@ -1,3 +1,5 @@
+// GUI for the main game playing area
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -16,15 +18,20 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 	private ShapeWorld game;
 	private Player player;
 	private Image map, coin;
-	private boolean moveUp, moveDown, moveLeft, moveRight;
+	private boolean moveUp, moveDown, moveLeft, moveRight, firingStatus;
+	private int animationSpeed;
+	private int mouseX, mouseY;
 	private Timer timer;
 	
 	public GameArea(Image map, Image coin)
 	{
+		mouseX = mouseY = 0;
+		moveUp = moveDown = moveLeft = moveRight = firingStatus = false;
+		animationSpeed = 5;
 		this.setLayout(null);
 		
 		game = new ShapeWorld(SCREEN_CENTER_X, SCREEN_CENTER_Y, SCREEN_CENTER);
-		timer = new Timer(5, this);
+		timer = new Timer(animationSpeed, this);
 		timer.start();
 		player = game.getPlayer();
 		this.map = map;
@@ -54,6 +61,8 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 		this.addMouseMotionListener(this);
 		this.addMouseListener(this);
 		this.requestFocus();
+		
+		
 	}
 	
 	public void paintComponent(Graphics g)
@@ -93,7 +102,19 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 			game.updateCoords(5, 0);
 		if(moveRight)
 			game.updateCoords(-5, 0);
-			
+		
+		
+		
+		if(firingStatus && player.getRemainingReloadTime() == 0)
+		{
+			//Fires a shot
+			game.shotFired(mouseX, mouseY);
+			player.setRemainingReloadTime(player.getWepReloadSpeed());
+		}
+		else
+		{
+			player.decreaseRemainingReloadTime(animationSpeed);
+		}
 		game.updateShots();
 		this.repaint();
 	}
@@ -133,12 +154,27 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 	public void mouseClicked(MouseEvent e) {
 		
 		//Fires a shot
-		game.shotFired(e.getX(), e.getY());
+		//game.shotFired(mouseX, mouseY);
 	}
-	public void mousePressed(MouseEvent e) {}
-	public void mouseReleased(MouseEvent e) {}
+	public void mousePressed(MouseEvent e)
+	{
+		mouseX = e.getX();
+		mouseY = e.getY();
+		firingStatus = true;
+	}
+	public void mouseReleased(MouseEvent e)
+	{
+		firingStatus = false;
+	}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
-	public void mouseMoved(MouseEvent e) {}
-	public void mouseDragged(MouseEvent e) {}
+	public void mouseMoved(MouseEvent e)
+	{
+		
+	}
+	public void mouseDragged(MouseEvent e)
+	{
+		mouseX = e.getX();
+		mouseY = e.getY();
+	}
 }

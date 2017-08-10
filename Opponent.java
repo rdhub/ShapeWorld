@@ -20,6 +20,16 @@ public class Opponent
 		attack = a;
 	}
 	
+	public int getX()
+	{
+		return xPos;
+	}
+	
+	public int getY()
+	{
+		return yPos;
+	}
+	
 	public void setAttack(int a)
 	{
 		attack = a;

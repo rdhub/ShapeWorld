@@ -10,10 +10,10 @@ import javax.swing.*;
 public class ShapeWorldGUI extends JApplet implements KeyListener, MouseListener,
 											MouseMotionListener, ActionListener
 {
-	private CardLayout cards;
+	private CardLayout cardLayout;
 	private Container c;
 	//~ private Finish endscreen;
-	private GameArea canvas;
+	private GameArea gameArea;
 	//~ private MainMenu menu;
 	
 	private Image map, coin, title, eyes;
@@ -37,20 +37,21 @@ public class ShapeWorldGUI extends JApplet implements KeyListener, MouseListener
 		WaitForImage ( this, eyes );
 		
 		c = this.getContentPane();
-		cards = new CardLayout();
-		c.setLayout(cards);
 		
-		//~ menu = new MainMeu();
+		cardLayout = new CardLayout();
+		c.setLayout(cardLayout);
+		
+		//~ menu = new MainMenu();
 		//~ c.add(menu, "MainMenu");
 		
-		canvas = new GameArea(map, coin);
-		c.add(canvas, "GamePanel");
+		gameArea = new GameArea(map, coin);
+		c.add(gameArea, "GamePanel");
 		
 		
 		//~ endscreen = new Finish();
 		//~ c.add(endscreen, "EndScreen");
 		
-		canvas.requestFocus();
+		gameArea.requestFocus();
 	}
 	
 	public void WaitForImage ( JApplet component, Image image )
