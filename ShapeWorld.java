@@ -41,7 +41,7 @@ public class ShapeWorld {
 		return MAP_SIZE;
 	}
 	
-	public void updateCoords(int dx, int dy)
+	public void updateCoords(int dx, int dy) // Updates coordinates when the player moves
 	{
 		int playerXCenterPos = screenCenter - player.getPlayerWidth()/2;
 		int playerYCenterPos = screenCenter - player.getPlayerHeight()/2;
@@ -54,6 +54,7 @@ public class ShapeWorld {
 			if(map_y + dy < mapTopEdge && playerY == playerYCenterPos)
 			{
 				map_y += dy;
+				updateShots(dx, dy);
 			}
 			else//Moves the player position
 			{
@@ -69,6 +70,7 @@ public class ShapeWorld {
 			if(map_y + dy > mapBotEdge && playerY == playerYCenterPos)
 			{
 				map_y += dy;
+				updateShots(dx, dy);
 			}
 			else//Moves the player position
 			{
@@ -84,6 +86,7 @@ public class ShapeWorld {
 			if(map_x + dx < mapLeftEdge && playerX == playerXCenterPos)
 			{
 				map_x += dx;
+				updateShots(dx, dy);
 			}
 			else //Moves the player position
 			{
@@ -99,6 +102,7 @@ public class ShapeWorld {
 			if(map_x + dx > mapRightEdge && playerX == playerXCenterPos)
 			{
 				map_x += dx;
+				updateShots(dx, dy);
 			}
 			else//Moves the player position
 			{
@@ -135,6 +139,16 @@ public class ShapeWorld {
 			//Remove if shot reaches its max travel distance
 			if(shot.isAtMaxShotDist())
 				shots.remove(i);
+		}
+	}
+	
+	public void updateShots(int moveDistX, int moveDistY)
+	{
+		for (int i = shots.size() - 1; i >= 0; i--)
+		{
+			Projectile shot = shots.get(i);
+			shot.updateXPosition(moveDistX);
+			shot.updateYPosition(moveDistY);
 		}
 	}
 	// Returns x position of the shot

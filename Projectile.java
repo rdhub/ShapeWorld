@@ -12,7 +12,7 @@ public class Projectile
 	{
 		targetX = targetY = 0;
 		dx = dy = dist = travelDist = 0;
-		speed = 3;
+		speed = 7;
 		size = 10;
 	}
 	
@@ -66,6 +66,16 @@ public class Projectile
 	public void setYPosition(double y)
 	{
 		yPosition = y;
+	}
+	
+	public void updateXPosition(double x)
+	{
+		xPosition += x;
+	}
+	
+	public void updateYPosition(double y)
+	{
+		yPosition += y;
 	}
 	
 	public double getXPosition()

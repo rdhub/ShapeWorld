@@ -21,10 +21,12 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 	private boolean moveUp, moveDown, moveLeft, moveRight, firingStatus;
 	private int animationSpeed;
 	private int mouseX, mouseY;
+	private long time_when_shot_fired;
 	private Timer timer;
 	
 	public GameArea(Image map, Image coin)
 	{
+		time_when_shot_fired = 0;
 		mouseX = mouseY = 0;
 		moveUp = moveDown = moveLeft = moveRight = firingStatus = false;
 		animationSpeed = 5;
@@ -93,7 +95,7 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 	
 	
 	public void actionPerformed(ActionEvent e) {
-		
+		 
 		//Checks which direction player is currently moving in
 		if(moveUp)
 			game.updateCoords(0, 5);
@@ -104,17 +106,11 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 		if(moveRight)
 			game.updateCoords(-5, 0);
 		
-		
-		
-		if(firingStatus && player.getRemainingReloadTime() == 0)
+		if(firingStatus && e.getWhen() - time_when_shot_fired >= player.getWepReloadSpeed())
 		{
 			//Fires a shot
 			game.shotFired(mouseX, mouseY);
-			player.setRemainingReloadTime(player.getWepReloadSpeed());
-		}
-		else
-		{
-			player.decreaseRemainingReloadTime(animationSpeed);
+			time_when_shot_fired = e.getWhen();
 		}
 		game.updateShots();
 		this.repaint();
@@ -152,11 +148,7 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 		if(e.getKeyChar()=='d')
 			moveRight = false;
 	}
-	public void mouseClicked(MouseEvent e) {
-		
-		//Fires a shot
-		//game.shotFired(mouseX, mouseY);
-	}
+	public void mouseClicked(MouseEvent e) {}
 	public void mousePressed(MouseEvent e)
 	{
 		mouseX = e.getX();
