@@ -121,7 +121,6 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 			Opponent enemy = game.getEnemy(i);
 			if(e.getWhen()- enemy.getMovementTime() >= enemy.getMoveDuration())
 			{
-				System.out.println("here");
 				enemy.setMovementTime(e.getWhen());
 				enemy.toggleMoving();
 				if(enemy.isMoving())

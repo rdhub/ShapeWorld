@@ -162,11 +162,11 @@ public class ShapeWorld {
 	
 	public void updateEnemies(int moveDistX, int moveDistY)
 	{
-		for (int i = shots.size() - 1; i >= 0; i--)
+		for (int i = enemies.size() - 1; i >= 0; i--)
 		{
 			Opponent enemy = enemies.get(i);
-			shot.updateXPosition(moveDistX);
-			shot.updateYPosition(moveDistY);
+			enemy.updateXPosition(moveDistX);
+			enemy.updateYPosition(moveDistY);
 		}
 	}
 	// Returns x position of the shot

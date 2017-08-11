@@ -4,12 +4,15 @@ public class Opponent
 	private int hitBox;
 	private double xPos, yPos;
 	private double moveDx, moveDy;
-	private int speed, moveDuration;
+	private int moveDuration;
+	private double speed;
 	private boolean moving;
 	private long movement_time;
+	private int prevMovementDirection;
 	
 	public Opponent()
 	{
+		prevMovementDirection = -1;
 		movement_time = 0;
 		moving = false;
 		moveDuration = 2000;
@@ -19,7 +22,7 @@ public class Opponent
 		maxHp = 0;
 		remainingHp = 0;
 		attack = 0;
-		speed = 1;
+		speed = 0.5;
 	}
 	
 	public Opponent(int h, int a)
@@ -86,10 +89,22 @@ public class Opponent
 	
 	public void generateMoveDirection()
 	{
-		//360 degrees
-		int angle = (int)(Math.random()*360+1);
-		moveDx = Math.cos(angle);
-		moveDy = Math.sin(angle);
+		int angle = 0;
+		//360 degrees:rand angle will be from 0 to 359 degrees
+		if(prevMovementDirection == -1)
+		{
+			System.out.println("first angle");
+			angle = (int)(Math.random()*360);
+		}
+		else
+		{
+			System.out.println("modified angle");
+			angle = (int)(Math.random()*180 + prevMovementDirection + 90)%360;
+		}
+		prevMovementDirection = angle;
+		moveDx = Math.cos(angle*Math.PI/180.0);// convert to radians
+		moveDy = Math.sin(angle*Math.PI/180.0);
+		System.out.println(angle + "\tmoveDx:" + moveDx + "\tmoveDy:" + moveDy);
 	}
 	
 	public void move()
