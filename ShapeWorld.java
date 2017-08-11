@@ -9,11 +9,15 @@ public class ShapeWorld {
 	private int map_x, map_y;
 	private int screenCenter, screenSize;
 	private int mapLeftEdge, mapTopEdge, mapBotEdge, mapRightEdge;
+	private ArrayList<Opponent> enemies;
 
 	public ShapeWorld(int centerX, int centerY, int center)
 	{
 		player = new Player(centerX, centerY);
-		shots = new ArrayList<Projectile>();
+		shots = new ArrayList<Projectile>(100);
+		enemies = new ArrayList<Opponent>();
+		Opponent opponent = new Opponent(10, 1); //(health, attack)
+		enemies.add(opponent);
 		map_x = map_y = center - MAP_SIZE/2;
 		screenCenter = center;
 		screenSize = center*2;
@@ -55,6 +59,7 @@ public class ShapeWorld {
 			{
 				map_y += dy;
 				updateShots(dx, dy);
+				updateEnemies(dx, dy);
 			}
 			else//Moves the player position
 			{
@@ -71,6 +76,7 @@ public class ShapeWorld {
 			{
 				map_y += dy;
 				updateShots(dx, dy);
+				updateEnemies(dx, dy);
 			}
 			else//Moves the player position
 			{
@@ -87,6 +93,7 @@ public class ShapeWorld {
 			{
 				map_x += dx;
 				updateShots(dx, dy);
+				updateEnemies(dx, dy);
 			}
 			else //Moves the player position
 			{
@@ -103,6 +110,7 @@ public class ShapeWorld {
 			{
 				map_x += dx;
 				updateShots(dx, dy);
+				updateEnemies(dx, dy);
 			}
 			else//Moves the player position
 			{
@@ -151,6 +159,16 @@ public class ShapeWorld {
 			shot.updateYPosition(moveDistY);
 		}
 	}
+	
+	public void updateEnemies(int moveDistX, int moveDistY)
+	{
+		for (int i = shots.size() - 1; i >= 0; i--)
+		{
+			Opponent enemy = enemies.get(i);
+			shot.updateXPosition(moveDistX);
+			shot.updateYPosition(moveDistY);
+		}
+	}
 	// Returns x position of the shot
 	public int getShotX(int index)
 	{
@@ -163,4 +181,13 @@ public class ShapeWorld {
 		return (int)Math.round(shots.get(index).getYPosition());
 	}
 	
+	public Opponent getEnemy(int index)
+	{
+		return enemies.get(index);
+	}
+	
+	public int getNumberOfEnemies()
+	{
+		return enemies.size();
+	}
 }

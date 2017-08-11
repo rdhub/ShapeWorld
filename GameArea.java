@@ -83,8 +83,17 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 		//Draws the shots fired from the player
 		for (int i = 0; i < game.getNumberOfShots(); i++)
 		{
+			g.setColor(Color.blue);
 			g.fillOval(game.getShotX(i), game.getShotY(i), 10, 10);
 		}
+		
+		//Draws the enemies
+		for (int i = 0; i < game.getNumberOfEnemies(); i++)
+		{
+			g.setColor(Color.red);
+			g.fillRect(game.getEnemy(i).getX(), game.getEnemy(i).getY(), 20, 20);
+		}
+		
 		
 		// Draws the right side upgrade panel
 		g.setColor(Color.white);
@@ -98,13 +107,34 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 		 
 		//Checks which direction player is currently moving in
 		if(moveUp)
-			game.updateCoords(0, 5);
+			game.updateCoords(0, 2);
 		if(moveDown)
-			game.updateCoords(0, -5);
+			game.updateCoords(0, -2);
 		if(moveLeft)
-			game.updateCoords(5, 0);
+			game.updateCoords(2, 0);
 		if(moveRight)
-			game.updateCoords(-5, 0);
+			game.updateCoords(-2, 0);
+		
+		//Moves the enemy
+		for (int i = 0; i < game.getNumberOfEnemies(); i++)
+		{
+			Opponent enemy = game.getEnemy(i);
+			if(e.getWhen()- enemy.getMovementTime() >= enemy.getMoveDuration())
+			{
+				System.out.println("here");
+				enemy.setMovementTime(e.getWhen());
+				enemy.toggleMoving();
+				if(enemy.isMoving())
+				{
+					System.out.println("newMove");
+					enemy.generateMoveDirection();
+				}
+			}
+			if(enemy.isMoving())
+			{
+				enemy.move();
+			}
+		}
 		
 		if(firingStatus && e.getWhen() - time_when_shot_fired >= player.getWepReloadSpeed())
 		{
