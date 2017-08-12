@@ -147,6 +147,19 @@ public class ShapeWorld {
 			//Remove if shot reaches its max travel distance
 			if(shot.isAtMaxShotDist())
 				shots.remove(i);
+			else
+			{
+				for(int j = 0; j < enemies.size(); j++)
+				{
+					Opponent enemy = enemies.get(j);
+					if(enemy.isHit(shot))
+					{
+						System.out.println("hit!");
+						shots.remove(i);
+						break;
+					}
+				}
+			}
 		}
 	}
 	

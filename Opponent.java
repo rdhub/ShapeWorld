@@ -162,4 +162,16 @@ public class Opponent
 	{
 		yPos += y;
 	}
+	
+	public boolean isHit(Projectile shot)
+	{
+		int shotSize = shot.getSize();
+		
+		if(shot.getXPosition() < xPos + hitBox && //right edge of enemy
+			shot.getXPosition() + shotSize > xPos && //left edge
+			shot.getYPosition() < yPos + hitBox && //bottom edge
+			shot.getYPosition() + shotSize > yPos) //top edge
+			return true;
+		return false;
+	}
 }
