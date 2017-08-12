@@ -52,10 +52,12 @@ public class ShapeWorld {
 		int playerX = player.getPlayerX();
 		int playerY = player.getPlayerY();
 		
+		System.out.println("player center: ("+playerXCenterPos+", " + playerYCenterPos+")");
+		System.out.println("player: ("+playerX+", " + playerY+")");
 		if(dy > 0) //moving up
 		{
 			// Moves position of the map
-			if(map_y + dy < mapTopEdge && playerY == playerYCenterPos)
+			if(map_y + dy < mapTopEdge && playerY <= playerYCenterPos)
 			{
 				map_y += dy;
 				updateShots(dx, dy);
@@ -72,7 +74,7 @@ public class ShapeWorld {
 		if(dy < 0) //moving down
 		{
 			// Moves position of the map
-			if(map_y + dy > mapBotEdge && playerY == playerYCenterPos)
+			if(map_y + dy > mapBotEdge && playerY >= playerYCenterPos)
 			{
 				map_y += dy;
 				updateShots(dx, dy);
@@ -89,7 +91,7 @@ public class ShapeWorld {
 		if(dx > 0) //moving left
 		{
 			// Moves position of the map
-			if(map_x + dx < mapLeftEdge && playerX == playerXCenterPos)
+			if(map_x + dx < mapLeftEdge && playerX <= playerXCenterPos)
 			{
 				map_x += dx;
 				updateShots(dx, dy);
@@ -106,7 +108,7 @@ public class ShapeWorld {
 		if(dx < 0) //moving right
 		{
 			// Moves position of the map
-			if(map_x + dx > mapRightEdge && playerX == playerXCenterPos)
+			if(map_x + dx > mapRightEdge && playerX >= playerXCenterPos)
 			{
 				map_x += dx;
 				updateShots(dx, dy);

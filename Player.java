@@ -11,7 +11,7 @@ public class Player
 		currentExp = 0;
 		nextLevelExp = 25;
 		currentHp = maxHp = 100;
-		player_height = player_width = 30;
+		player_height = player_width = 28;
 		wepReloadSpeed = 500;
 		
 		// Centers the player on the center of the screen
