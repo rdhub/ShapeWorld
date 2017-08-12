@@ -47,10 +47,10 @@ public class ShapeWorld {
 	
 	public void updateCoords(int dx, int dy) // Updates coordinates when the player moves
 	{
-		int playerXCenterPos = screenCenter - player.getPlayerWidth()/2;
-		int playerYCenterPos = screenCenter - player.getPlayerHeight()/2;
-		int playerX = player.getPlayerX();
-		int playerY = player.getPlayerY();
+		int playerXCenterPos = screenCenter - player.getWidth()/2;
+		int playerYCenterPos = screenCenter - player.getHeight()/2;
+		int playerX = player.getX();
+		int playerY = player.getY();
 		
 		System.out.println("player center: ("+playerXCenterPos+", " + playerYCenterPos+")");
 		System.out.println("player: ("+playerX+", " + playerY+")");
@@ -66,9 +66,9 @@ public class ShapeWorld {
 			else//Moves the player position
 			{
 				if(playerY - dy >= mapTopEdge)
-					player.updatePlayerY(-dy);
+					player.updateY(-dy);
 				else
-					player.setPlayerY(mapTopEdge); //set playerY to edge value
+					player.setY(mapTopEdge); //set playerY to edge value
 			}
 		}
 		if(dy < 0) //moving down
@@ -82,10 +82,10 @@ public class ShapeWorld {
 			}
 			else//Moves the player position
 			{
-				if(playerY + player.getPlayerHeight() - dy <= screenSize)
-					player.updatePlayerY(-dy);
+				if(playerY + player.getHeight() - dy <= screenSize)
+					player.updateY(-dy);
 				else
-					player.setPlayerY(screenSize - player.getPlayerHeight()); //set playerY to edge value
+					player.setY(screenSize - player.getHeight()); //set playerY to edge value
 			}
 		}
 		if(dx > 0) //moving left
@@ -100,9 +100,9 @@ public class ShapeWorld {
 			else //Moves the player position
 			{
 				if(playerX - dx >= mapLeftEdge)
-					player.updatePlayerX(-dx);
+					player.updateX(-dx);
 				else
-					player.setPlayerX(mapLeftEdge); //set playerX to edge value
+					player.setX(mapLeftEdge); //set playerX to edge value
 			}
 		}
 		if(dx < 0) //moving right
@@ -116,10 +116,10 @@ public class ShapeWorld {
 			}
 			else//Moves the player position
 			{
-				if(playerX + player.getPlayerWidth() - dx <= screenSize)
-					player.updatePlayerX(-dx);
+				if(playerX + player.getWidth() - dx <= screenSize)
+					player.updateX(-dx);
 				else
-					player.setPlayerX(screenSize - player.getPlayerWidth()); //set playerX to edge value
+					player.setX(screenSize - player.getWidth()); //set playerX to edge value
 			}
 		}
 	}
@@ -127,7 +127,7 @@ public class ShapeWorld {
 	// Creates a new shot
 	public void shotFired(int targetX, int targetY)
 	{
-		Projectile shot = new Projectile(player.getPlayerX() + player.getPlayerWidth()/2, player.getPlayerY() + player.getPlayerHeight()/2, null, screenSize/2*Math.sqrt(2));
+		Projectile shot = new Projectile(player.getX() + player.getWidth()/2, player.getY() + player.getHeight()/2, null, screenSize/2*Math.sqrt(2));
 		shot.setTargetX(targetX);
 		shot.setTargetY(targetY);
 		shot.calculate();
@@ -170,8 +170,8 @@ public class ShapeWorld {
 		for (int i = shots.size() - 1; i >= 0; i--)
 		{
 			Projectile shot = shots.get(i);
-			shot.updateXPosition(moveDistX);
-			shot.updateYPosition(moveDistY);
+			shot.updateX(moveDistX);
+			shot.updateY(moveDistY);
 		}
 	}
 	
@@ -180,20 +180,20 @@ public class ShapeWorld {
 		for (int i = enemies.size() - 1; i >= 0; i--)
 		{
 			Opponent enemy = enemies.get(i);
-			enemy.updateXPosition(moveDistX);
-			enemy.updateYPosition(moveDistY);
+			enemy.updateX(moveDistX);
+			enemy.updateY(moveDistY);
 		}
 	}
 	// Returns x position of the shot
 	public int getShotX(int index)
 	{
-		return (int)Math.round(shots.get(index).getXPosition());
+		return (int)Math.round(shots.get(index).getX());
 	}
 	
 	// returns y position of the shot
 	public int getShotY(int index)
 	{
-		return (int)Math.round(shots.get(index).getYPosition());
+		return (int)Math.round(shots.get(index).getY());
 	}
 	
 	public Opponent getEnemy(int index)

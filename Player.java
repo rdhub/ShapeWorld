@@ -29,22 +29,22 @@ public class Player
 		wepReloadSpeed -= 100;
 	}
 	
-	public int getPlayerX()
+	public int getX()
 	{
 		return player_X;
 	}
 	
-	public int getPlayerY()
+	public int getY()
 	{
 		return player_Y;
 	}
 	
-	public int getPlayerHeight()
+	public int getHeight()
 	{
 		return player_height;
 	}
 	
-	public int getPlayerWidth()
+	public int getWidth()
 	{
 		return player_width;
 	}
@@ -69,22 +69,22 @@ public class Player
 		return maxHp;
 	}
 	
-	public void updatePlayerX(int dx)
+	public void updateX(int dx)
 	{
 		player_X += dx;
 	}
 	
-	public void updatePlayerY(int dy)
+	public void updateY(int dy)
 	{
 		player_Y += dy;
 	}
 	
-	public void setPlayerX(int x)
+	public void setX(int x)
 	{
 		player_X = x;
 	}
 	
-	public void setPlayerY(int y)
+	public void setY(int y)
 	{
 		player_Y = y;
 	}

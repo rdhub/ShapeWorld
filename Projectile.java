@@ -58,32 +58,32 @@ public class Projectile
 		updateTravelDist(Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)));
 	}
 	
-	public void setXPosition(double x)
+	public void setX(double x)
 	{
 		xPosition = x;
 	}
 	
-	public void setYPosition(double y)
+	public void setY(double y)
 	{
 		yPosition = y;
 	}
 	
-	public void updateXPosition(double x)
+	public void updateX(double x)
 	{
 		xPosition += x;
 	}
 	
-	public void updateYPosition(double y)
+	public void updateY(double y)
 	{
 		yPosition += y;
 	}
 	
-	public double getXPosition()
+	public double getX()
 	{
 		return xPosition;
 	}
 	
-	public double getYPosition()
+	public double getY()
 	{
 		return yPosition;
 	}

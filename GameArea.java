@@ -76,7 +76,7 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 		
 		//Draws the player
 		g.setColor(Color.black);
-		g.fillRect(player.getPlayerX(), player.getPlayerY(), player.getPlayerWidth(), player.getPlayerHeight());
+		g.fillRect(player.getX(), player.getY(), player.getWidth(), player.getHeight());
 		
 		
 		
@@ -119,10 +119,10 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 		for (int i = 0; i < game.getNumberOfEnemies(); i++)
 		{
 			Opponent enemy = game.getEnemy(i);
-			if(enemy.isInRangeOfPlayer(player.getPlayerX(), player.getPlayerY()))
+			if(enemy.isInRangeOfPlayer(player.getX(), player.getY()))
 			{
 				System.out.println("found player");
-				enemy.generatePlayerDirection(player.getPlayerX(), player.getPlayerY());
+				enemy.generatePlayerDirection(player.getX(), player.getY());
 			}
 			if(e.getWhen()- enemy.getMovementTime() >= enemy.getMoveDuration())
 			{
@@ -134,7 +134,7 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 					enemy.generateMoveDirection();
 				}
 			}
-			if(enemy.isMoving()||enemy.isInRangeOfPlayer(player.getPlayerX(), player.getPlayerY()))
+			if(enemy.isMoving()||enemy.isInRangeOfPlayer(player.getX(), player.getY()))
 			{
 				enemy.move();
 			}

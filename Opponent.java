@@ -35,12 +35,12 @@ public class Opponent
 		attack = a;
 	}
 	
-	public void setXPos(double x)
+	public void setX(double x)
 	{
 		xPos = x;
 	}
 	
-	public void setYPos(double y)
+	public void setY(double y)
 	{
 		yPos = y;
 	}
@@ -153,12 +153,12 @@ public class Opponent
 	{
 		movement_time = time;
 	}
-	public void updateXPosition(double x)
+	public void updateX(double x)
 	{
 		xPos += x;
 	}
 	
-	public void updateYPosition(double y)
+	public void updateY(double y)
 	{
 		yPos += y;
 	}
@@ -167,10 +167,10 @@ public class Opponent
 	{
 		int shotSize = shot.getSize();
 		
-		if(shot.getXPosition() < xPos + hitBox && //right edge of enemy
-			shot.getXPosition() + shotSize > xPos && //left edge
-			shot.getYPosition() < yPos + hitBox && //bottom edge
-			shot.getYPosition() + shotSize > yPos) //top edge
+		if(shot.getX() < xPos + hitBox && //right edge of enemy
+			shot.getX() + shotSize > xPos && //left edge
+			shot.getY() < yPos + hitBox && //bottom edge
+			shot.getY() + shotSize > yPos) //top edge
 			return true;
 		return false;
 	}
