@@ -4,14 +4,14 @@ public class Projectile
 {
 	private double xPosition, yPosition;
 	private double targetX, targetY;
-	private double dx, dy, dist, speed, travelDist, maxTravelDist;
+	private double dx, dy, speed, travelDist, maxTravelDist;
 	private int size;
 	private Image image;
 	
 	public Projectile()
 	{
 		targetX = targetY = 0;
-		dx = dy = dist = travelDist = 0;
+		dx = dy = travelDist = 0;
 		speed = 4;
 		size = 10;
 	}
@@ -47,7 +47,7 @@ public class Projectile
 	{
 		double diffX = targetX - xPosition;
 		double diffY = targetY - yPosition;
-		dist = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
+		double dist = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
 		dx = diffX/dist*speed;
 		dy = diffY/dist*speed;
 	}

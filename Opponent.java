@@ -9,9 +9,11 @@ public class Opponent
 	private boolean moving;
 	private long movement_time;
 	private int prevMovementDirection;
+	private int detectionRange;
 	
 	public Opponent()
 	{
+		detectionRange = 100;
 		prevMovementDirection = -1;
 		movement_time = 0;
 		moving = false;
@@ -107,12 +109,26 @@ public class Opponent
 		System.out.println(angle + "\tmoveDx:" + moveDx + "\tmoveDy:" + moveDy);
 	}
 	
+	public boolean isInRangeOfPlayer(int playerX, int playerY)
+	{
+		double diffX = playerX - xPos;
+		double diffY = playerY - yPos;
+		return Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2)) <= detectionRange;
+	}
 	public void move()
 	{
 		xPos += moveDx*speed;
 		yPos += moveDy*speed;
 	}
 	
+	public void generatePlayerDirection(int playerX, int playerY)
+	{
+		double diffX = playerX - xPos;
+		double diffY = playerY - yPos;
+		double dist = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
+		moveDx = diffX/dist;
+		moveDy = diffY/dist;
+	}
 	public int getMoveDuration()
 	{
 		return moveDuration;
