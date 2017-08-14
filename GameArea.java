@@ -122,7 +122,7 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 			if(enemy.isInRangeOfPlayer(player.getX(), player.getY()))
 			{
 				System.out.println("found player");
-				enemy.generatePlayerDirection(player.getX(), player.getY());
+				enemy.generatePlayerDirection(player.getX() + player.getWidth()/2, player.getY() + player.getHeight()/2);
 			}
 			if(e.getWhen()- enemy.getMovementTime() >= enemy.getMoveDuration())
 			{
@@ -148,6 +148,7 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 		}
 		game.updateShots();
 		this.repaint();
+		
 	}
 	
 	public void keyPressed(KeyEvent e) {}
@@ -182,7 +183,9 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 		if(e.getKeyChar()=='d')
 			moveRight = false;
 	}
-	public void mouseClicked(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e) {
+		this.requestFocus();
+	}
 	public void mousePressed(MouseEvent e)
 	{
 		mouseX = e.getX();

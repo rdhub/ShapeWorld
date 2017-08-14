@@ -121,10 +121,12 @@ public class Opponent
 		yPos += moveDy*speed;
 	}
 	
-	public void generatePlayerDirection(int playerX, int playerY)
+	public void generatePlayerDirection(int playerCenterX, int playerCenterY)
 	{
-		double diffX = playerX - xPos;
-		double diffY = playerY - yPos;
+		double xCenter = xPos + hitBox/2;
+		double yCenter = yPos + hitBox/2;
+		double diffX = playerCenterX - xCenter;
+		double diffY = playerCenterY - yCenter;
 		double dist = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
 		moveDx = diffX/dist;
 		moveDy = diffY/dist;
