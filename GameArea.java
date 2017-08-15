@@ -84,6 +84,7 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 		for (int i = 0; i < game.getNumberOfShots(); i++)
 		{
 			g.setColor(Color.blue);
+			
 			g.fillOval(game.getShotX(i), game.getShotY(i), 10, 10);
 		}
 		
@@ -115,22 +116,22 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 		if(moveRight)
 			game.updateCoords(-2, 0);
 		
+		
 		//Moves the enemy
 		for (int i = 0; i < game.getNumberOfEnemies(); i++)
 		{
 			Opponent enemy = game.getEnemy(i);
 			if(enemy.isInRangeOfPlayer(player.getX(), player.getY()))
 			{
-				System.out.println("found player");
 				enemy.generatePlayerDirection(player.getX() + player.getWidth()/2, player.getY() + player.getHeight()/2);
 			}
-			if(e.getWhen()- enemy.getMovementTime() >= enemy.getMoveDuration())
+			
+			if(e.getWhen() - enemy.getMovementTimeStamp() >= enemy.getMoveDuration())
 			{
-				enemy.setMovementTime(e.getWhen());
+				enemy.setMovementTimeStamp(e.getWhen());
 				enemy.toggleMoving();
 				if(enemy.isMoving())
 				{
-					System.out.println("newMove");
 					enemy.generateMoveDirection();
 				}
 			}
@@ -198,10 +199,7 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 	}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
-	public void mouseMoved(MouseEvent e)
-	{
-		
-	}
+	public void mouseMoved(MouseEvent e){}
 	public void mouseDragged(MouseEvent e)
 	{
 		mouseX = e.getX();

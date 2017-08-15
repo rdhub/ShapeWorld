@@ -7,7 +7,7 @@ public class Opponent
 	private int moveDuration;
 	private double speed;
 	private boolean moving;
-	private long movement_time;
+	private long movement_time_stamp;
 	private int prevMovementDirection;
 	private int detectionRange;
 	
@@ -15,9 +15,9 @@ public class Opponent
 	{
 		detectionRange = 100;
 		prevMovementDirection = -1;
-		movement_time = 0;
 		moving = false;
 		moveDuration = 2000;
+		movement_time_stamp = System.currentTimeMillis() - (long)(Math.random()*moveDuration); //randomizes initial time stamp so that multiple opponents will have different move patterns
 		moveDx = moveDy = 0;
 		xPos = yPos = 100;
 		hitBox = 20;
@@ -27,12 +27,14 @@ public class Opponent
 		speed = 0.5;
 	}
 	
-	public Opponent(int h, int a)
+	public Opponent(int h, int a, double initialXPos, double initialYPos)
 	{
 		this();
 		maxHp = h;
 		remainingHp = maxHp;
 		attack = a;
+		xPos = initialXPos;
+		yPos = initialYPos;
 	}
 	
 	public void setX(double x)
@@ -95,18 +97,15 @@ public class Opponent
 		//360 degrees:rand angle will be from 0 to 359 degrees
 		if(prevMovementDirection == -1)
 		{
-			System.out.println("first angle");
 			angle = (int)(Math.random()*360);
 		}
 		else
 		{
-			System.out.println("modified angle");
 			angle = (int)(Math.random()*180 + prevMovementDirection + 90)%360;
 		}
 		prevMovementDirection = angle;
 		moveDx = Math.cos(angle*Math.PI/180.0);// convert to radians
 		moveDy = Math.sin(angle*Math.PI/180.0);
-		System.out.println(angle + "\tmoveDx:" + moveDx + "\tmoveDy:" + moveDy);
 	}
 	
 	public boolean isInRangeOfPlayer(int playerX, int playerY)
@@ -146,14 +145,14 @@ public class Opponent
 		return moving;
 	}
 	
-	public long getMovementTime()
+	public long getMovementTimeStamp()
 	{
-		return movement_time;
+		return movement_time_stamp;
 	}
 	
-	public void setMovementTime(long time)
+	public void setMovementTimeStamp(long time)
 	{
-		movement_time = time;
+		movement_time_stamp = time;
 	}
 	public void updateX(double x)
 	{

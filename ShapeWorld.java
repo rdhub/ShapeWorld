@@ -16,8 +16,16 @@ public class ShapeWorld {
 		player = new Player(centerX, centerY);
 		shots = new ArrayList<Projectile>(100);
 		enemies = new ArrayList<Opponent>();
-		Opponent opponent = new Opponent(10, 1); //(health, attack)
-		enemies.add(opponent);
+		for (int i = 0; i < 4; i++)
+		{
+			Opponent opponent = new Opponent(10, 1, 100 + i*50, 100); //(health, attack, x, y)
+			enemies.add(opponent);
+		}
+		
+		//~ Opponent opponent = new Opponent(10, 1, 100, 100); //(health, attack, x, y)
+		//~ enemies.add(opponent);
+		//~ opponent = new Opponent(10, 1, 200, 100); //(health, attack, x, y)
+		//~ enemies.add(opponent);
 		map_x = map_y = center - MAP_SIZE/2;
 		screenCenter = center;
 		screenSize = center*2;
@@ -52,8 +60,6 @@ public class ShapeWorld {
 		int playerX = player.getX();
 		int playerY = player.getY();
 		
-		System.out.println("player center: ("+playerXCenterPos+", " + playerYCenterPos+")");
-		System.out.println("player: ("+playerX+", " + playerY+")");
 		if(dy > 0) //moving up
 		{
 			// Moves position of the map
