@@ -9,11 +9,23 @@ public class ShapeWorld {
 	private int map_x, map_y;
 	private int screenCenter, screenSize;
 	private int mapLeftEdge, mapTopEdge, mapBotEdge, mapRightEdge;
+	private ArrayList<Opponent> enemies;
 
 	public ShapeWorld(int centerX, int centerY, int center)
 	{
 		player = new Player(centerX, centerY);
-		shots = new ArrayList<Projectile>();
+		shots = new ArrayList<Projectile>(100);
+		enemies = new ArrayList<Opponent>();
+		for (int i = 0; i < 4; i++)
+		{
+			Opponent opponent = new Opponent(10, 1, 100 + i*50, 100); //(health, attack, x, y)
+			enemies.add(opponent);
+		}
+		
+		//~ Opponent opponent = new Opponent(10, 1, 100, 100); //(health, attack, x, y)
+		//~ enemies.add(opponent);
+		//~ opponent = new Opponent(10, 1, 200, 100); //(health, attack, x, y)
+		//~ enemies.add(opponent);
 		map_x = map_y = center - MAP_SIZE/2;
 		screenCenter = center;
 		screenSize = center*2;
@@ -41,89 +53,91 @@ public class ShapeWorld {
 		return MAP_SIZE;
 	}
 	
-	public void updateCoords(int dx, int dy)
+	public void updateCoords(int dx, int dy) // Updates coordinates when the player moves
 	{
-		int playerXCenterPos = screenCenter - player.getPlayerWidth()/2;
-		int playerYCenterPos = screenCenter - player.getPlayerHeight()/2;
-		int playerX = player.getPlayerX();
-		int playerY = player.getPlayerY();
+		int playerXCenterPos = screenCenter - player.getWidth()/2;
+		int playerYCenterPos = screenCenter - player.getHeight()/2;
+		int playerX = player.getX();
+		int playerY = player.getY();
 		
 		if(dy > 0) //moving up
 		{
-			if(map_y + dy < mapTopEdge && playerY == playerYCenterPos)
+			// Moves position of the map
+			if(map_y + dy < mapTopEdge && playerY <= playerYCenterPos)
 			{
 				map_y += dy;
+				updateShots(dx, dy);
+				updateEnemies(dx, dy);
 			}
-			else
+			else//Moves the player position
 			{
 				if(playerY - dy >= mapTopEdge)
-					player.updatePlayerY(-dy);
+					player.updateY(-dy);
 				else
-					player.setPlayerY(mapTopEdge); //set playerY to edge value
+					player.setY(mapTopEdge); //set playerY to edge value
 			}
 		}
 		if(dy < 0) //moving down
 		{
-			if(map_y + dy > mapBotEdge && playerY == playerYCenterPos)
+			// Moves position of the map
+			if(map_y + dy > mapBotEdge && playerY >= playerYCenterPos)
 			{
 				map_y += dy;
+				updateShots(dx, dy);
+				updateEnemies(dx, dy);
 			}
-			else
+			else//Moves the player position
 			{
-				if(playerY + player.getPlayerHeight() - dy <= screenSize)
-					player.updatePlayerY(-dy);
+				if(playerY + player.getHeight() - dy <= screenSize)
+					player.updateY(-dy);
 				else
-					player.setPlayerY(screenSize - player.getPlayerHeight()); //set playerY to edge value
+					player.setY(screenSize - player.getHeight()); //set playerY to edge value
 			}
 		}
 		if(dx > 0) //moving left
 		{
-			if(map_x + dx < mapLeftEdge && playerX == playerXCenterPos)
+			// Moves position of the map
+			if(map_x + dx < mapLeftEdge && playerX <= playerXCenterPos)
 			{
 				map_x += dx;
+				updateShots(dx, dy);
+				updateEnemies(dx, dy);
 			}
-			else
+			else //Moves the player position
 			{
 				if(playerX - dx >= mapLeftEdge)
-					player.updatePlayerX(-dx);
+					player.updateX(-dx);
 				else
-					player.setPlayerX(mapLeftEdge); //set playerX to edge value
+					player.setX(mapLeftEdge); //set playerX to edge value
 			}
 		}
 		if(dx < 0) //moving right
 		{
-			if(map_x + dx > mapRightEdge && playerX == playerXCenterPos)
+			// Moves position of the map
+			if(map_x + dx > mapRightEdge && playerX >= playerXCenterPos)
 			{
 				map_x += dx;
+				updateShots(dx, dy);
+				updateEnemies(dx, dy);
 			}
-			else
+			else//Moves the player position
 			{
-				if(playerX + player.getPlayerWidth() - dx <= screenSize)
-					player.updatePlayerX(-dx);
+				if(playerX + player.getWidth() - dx <= screenSize)
+					player.updateX(-dx);
 				else
-					player.setPlayerX(screenSize - player.getPlayerWidth()); //set playerX to edge value
+					player.setX(screenSize - player.getWidth()); //set playerX to edge value
 			}
 		}
 	}
-	public void updateMapX(int dx)
-	{
-		map_x += dx;
-	}
 	
-	public void updateMapY(int dy)
-	{
-		map_y += dy;
-	}
-	
+	// Creates a new shot
 	public void shotFired(int targetX, int targetY)
 	{
-		System.out.println(shots.size());
-		Projectile shot = new Projectile(player.getPlayerX() + player.getPlayerWidth()/2, player.getPlayerY() + player.getPlayerHeight()/2, null);
+		Projectile shot = new Projectile(player.getX() + player.getWidth()/2, player.getY() + player.getHeight()/2, null, screenSize/2*Math.sqrt(2));
 		shot.setTargetX(targetX);
 		shot.setTargetY(targetY);
 		shot.calculate();
 		shots.add(shot);
-		
 	}
 	
 	public int getNumberOfShots()
@@ -138,20 +152,63 @@ public class ShapeWorld {
 			Projectile shot = shots.get(i);
 			shot.updateCoords();
 			
-			//Remove if shot goes out of screen
-			if(shot.getXPosition() < mapLeftEdge || shot.getXPosition() > screenSize || shot.getYPosition() < mapTopEdge || shot.getYPosition() > screenSize)
+			//Remove if shot reaches its max travel distance
+			if(shot.isAtMaxShotDist())
 				shots.remove(i);
+			else
+			{
+				for(int j = 0; j < enemies.size(); j++)
+				{
+					Opponent enemy = enemies.get(j);
+					if(enemy.isHit(shot))
+					{
+						System.out.println("hit!");
+						shots.remove(i);
+						break;
+					}
+				}
+			}
 		}
 	}
 	
+	public void updateShots(int moveDistX, int moveDistY)
+	{
+		for (int i = shots.size() - 1; i >= 0; i--)
+		{
+			Projectile shot = shots.get(i);
+			shot.updateX(moveDistX);
+			shot.updateY(moveDistY);
+		}
+	}
+	
+	public void updateEnemies(int moveDistX, int moveDistY)
+	{
+		for (int i = enemies.size() - 1; i >= 0; i--)
+		{
+			Opponent enemy = enemies.get(i);
+			enemy.updateX(moveDistX);
+			enemy.updateY(moveDistY);
+		}
+	}
+	// Returns x position of the shot
 	public int getShotX(int index)
 	{
-		return (int)Math.round(shots.get(index).getXPosition());
+		return (int)Math.round(shots.get(index).getX());
 	}
 	
+	// returns y position of the shot
 	public int getShotY(int index)
 	{
-		return (int)Math.round(shots.get(index).getYPosition());
+		return (int)Math.round(shots.get(index).getY());
 	}
 	
+	public Opponent getEnemy(int index)
+	{
+		return enemies.get(index);
+	}
+	
+	public int getNumberOfEnemies()
+	{
+		return enemies.size();
+	}
 }

@@ -4,26 +4,36 @@ public class Projectile
 {
 	private double xPosition, yPosition;
 	private double targetX, targetY;
-	private double dx, dy, dist, speed;
+	private double dx, dy, speed, travelDist, maxTravelDist;
 	private int size;
 	private Image image;
 	
 	public Projectile()
 	{
 		targetX = targetY = 0;
-		dx = dy = dist = 0;
-		speed = 2;
+		dx = dy = travelDist = 0;
+		speed = 4;
 		size = 10;
 	}
 	
-	public Projectile(double xPosition, double yPosition, Image im)
+	public Projectile(double xPosition, double yPosition, Image im, double maxShotDist)
 	{
 		this();
 		this.xPosition = xPosition - size/2;
 		this.yPosition = yPosition - size/2;
 		image = im;
+		maxTravelDist = maxShotDist;
 	}
 	
+	public double getTravelDist()
+	{
+		return travelDist;
+	}
+	
+	public void updateTravelDist(double dist)
+	{
+		travelDist += dist;
+	}
 	public void setTargetX(double targetX)
 	{
 		this.targetX = targetX - size/2;
@@ -37,7 +47,7 @@ public class Projectile
 	{
 		double diffX = targetX - xPosition;
 		double diffY = targetY - yPosition;
-		dist = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
+		double dist = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
 		dx = diffX/dist*speed;
 		dy = diffY/dist*speed;
 	}
@@ -45,24 +55,35 @@ public class Projectile
 	{
 		xPosition += dx;
 		yPosition += dy;
+		updateTravelDist(Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)));
 	}
 	
-	public void setXPosition(double x)
+	public void setX(double x)
 	{
 		xPosition = x;
 	}
 	
-	public void setYPosition(double y)
+	public void setY(double y)
 	{
 		yPosition = y;
 	}
 	
-	public double getXPosition()
+	public void updateX(double x)
+	{
+		xPosition += x;
+	}
+	
+	public void updateY(double y)
+	{
+		yPosition += y;
+	}
+	
+	public double getX()
 	{
 		return xPosition;
 	}
 	
-	public double getYPosition()
+	public double getY()
 	{
 		return yPosition;
 	}
@@ -90,5 +111,10 @@ public class Projectile
 	public Image getImage()
 	{
 		return image;
+	}
+	
+	public boolean isAtMaxShotDist()
+	{
+		return travelDist >= maxTravelDist;
 	}
 }
