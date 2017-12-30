@@ -62,40 +62,38 @@ public class ShapeWorld {
 		player = new Player(centerX, centerY);
 		shots = new ArrayList<Projectile>(100);
 		enemies = new ArrayList<Opponent>();
-		for (int i = 0; i < 2000; i++)
+		for (int i = 0; i < 300; i++)
 		{
 			int horiz_multiplier = (int)(Math.random()*3); // ranges from 0 to 2
 			int vert_multiplier = (int)(Math.random()*3); // ranges from 0 to 2
-			int horiz_width = 1400;
-			int vert_width = 1400;
-			int opponentX = (int)(Math.random()*(-horiz_width) + horiz_multiplier);
+			int quadrant_width = 1400;
+			int opponentX = (int)(Math.random()*(-quadrant_width) + horiz_multiplier);
 			int opponentY = 0;
-			int offset = 500;
+			int horiz_offset = 500;
+			int vert_offset = 500*2;
+			
 			switch(horiz_multiplier)
 			{
-				case 0: opponentX = (int)(Math.random()*(-horiz_width) + (-offset) + (-horiz_width*horiz_multiplier));
-						vert_multiplier = 2; // ranges from 1 to 3
-						opponentY = (int)(Math.random()*(vert_width*vert_multiplier) + (-offset*2));break;
-				case 1: opponentX = (int)(Math.random()*(-horiz_width) + (-offset) + (-horiz_width*horiz_multiplier));
-						vert_multiplier = 4; // ranges from 1 to 3
-						opponentY = (int)(Math.random()*(vert_width*vert_multiplier) + (-offset*2) + (-horiz_width*horiz_multiplier));break;
-				case 2: opponentX = (int)(Math.random()*(-horiz_width) + (-offset) + (-horiz_width*horiz_multiplier));
-						vert_multiplier = 6; // ranges from 1 to 3
-						opponentY = (int)(Math.random()*(vert_width*vert_multiplier) + (-offset*2) + (-horiz_width*horiz_multiplier));break;
+				case 0: opponentX = (int)(Math.random()*(-quadrant_width) + (-horiz_offset) + (-quadrant_width*horiz_multiplier));
+				
+						vert_multiplier = 2;
+						opponentY = (int)(Math.random()*(quadrant_width*vert_multiplier) + (-vert_offset));break;
+						
+				case 1: opponentX = (int)(Math.random()*(-quadrant_width) + (-horiz_offset) + (-quadrant_width*horiz_multiplier));
+						vert_multiplier = 4;
+						
+						opponentY = (int)(Math.random()*(quadrant_width*vert_multiplier) + (-vert_offset) + (-quadrant_width*horiz_multiplier));break;
+						
+				case 2: opponentX = (int)(Math.random()*(-quadrant_width) + (-horiz_offset) + (-quadrant_width*horiz_multiplier));
+						vert_multiplier = 6;
+						
+						opponentY = (int)(Math.random()*(quadrant_width*vert_multiplier) + (-vert_offset) + (-quadrant_width*horiz_multiplier));break;
 			}
-			//~ opponentX = (int)(Math.random()*(-horiz_width) + (-offset) + (-horiz_width*0));
-			//~ vert_multiplier = 1; // ranges from 1 to 3
-			//~ opponentY = (int)(Math.random()*(vert_width*vert_multiplier) + (-offset));
-			//~ System.out.println(opponentX + "\t" + opponentY);
-			//~ Opponent opponent = new Opponent(10, 1, 100 + i*50, 100); //(health, attack, x, y)
+			
 			Opponent opponent = new Opponent(10, 1, opponentX, opponentY); //(health, attack, x, y)
 			enemies.add(opponent);
 		}
 		
-		//~ Opponent opponent = new Opponent(10, 1, 100, 100); //(health, attack, x, y)
-		//~ enemies.add(opponent);
-		//~ opponent = new Opponent(10, 1, 200, 100); //(health, attack, x, y)
-		//~ enemies.add(opponent);
 		map_x = map_y = center - MAP_SIZE/2;
 		screenCenter = center;
 		screenSize = center*2;
