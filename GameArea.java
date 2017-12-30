@@ -83,16 +83,23 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 		//Draws the shots fired from the player
 		for (int i = 0; i < game.getNumberOfShots(); i++)
 		{
-			g.setColor(Color.blue);
+			int shotX = game.getShotX(i);
+			int shotY = game.getShotY(i);
 			
-			g.fillOval(game.getShotX(i), game.getShotY(i), 10, 10);
+			g.setColor(Color.blue);
+			if(game.isOnScreen(shotX, shotY)) // Only draws the shot if it's on screen
+				g.fillOval(shotX, shotY, 10, 10);
 		}
 		
 		//Draws the enemies
 		for (int i = 0; i < game.getNumberOfEnemies(); i++)
 		{
+			int enemyX = game.getEnemy(i).getX();
+			int enemyY = game.getEnemy(i).getY();
+			
 			g.setColor(Color.red);
-			g.fillRect(game.getEnemy(i).getX(), game.getEnemy(i).getY(), 20, 20);
+			if(game.isOnScreen(enemyX, enemyY)) // Only draws the enemy if it's on screen
+				g.fillRect(enemyX, enemyY, 20, 20);
 		}
 		
 		
@@ -116,30 +123,8 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 		if(moveRight)
 			game.updateCoords(-2, 0);
 		
+		game.moveEnemies(e.getWhen());
 		
-		//Moves the enemy
-		for (int i = 0; i < game.getNumberOfEnemies(); i++)
-		{
-			Opponent enemy = game.getEnemy(i);
-			if(enemy.isInRangeOfPlayer(player.getX(), player.getY()))
-			{
-				enemy.generatePlayerDirection(player.getX() + player.getWidth()/2, player.getY() + player.getHeight()/2);
-			}
-			
-			if(e.getWhen() - enemy.getMovementTimeStamp() >= enemy.getMoveDuration())
-			{
-				enemy.setMovementTimeStamp(e.getWhen());
-				enemy.toggleMoving();
-				if(enemy.isMoving())
-				{
-					enemy.generateMoveDirection();
-				}
-			}
-			if(enemy.isMoving()||enemy.isInRangeOfPlayer(player.getX(), player.getY()))
-			{
-				enemy.move();
-			}
-		}
 		
 		if(firingStatus && e.getWhen() - time_when_shot_fired >= player.getWepReloadSpeed())
 		{

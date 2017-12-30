@@ -164,7 +164,7 @@ public class ShapeWorld {
 					{
 						System.out.println("hit!");
 						shots.remove(i);
-						break;
+						break; // Break because only 1 enemy can be hit
 					}
 				}
 			}
@@ -210,5 +210,42 @@ public class ShapeWorld {
 	public int getNumberOfEnemies()
 	{
 		return enemies.size();
+	}
+	
+	public boolean isOnScreen(int xCoord, int yCoord)
+	{
+		return xCoord >= 0 && xCoord <= screenSize && yCoord >= 0 && yCoord <= screenSize;
+	}
+	
+	public void moveEnemies(long currentTime)
+	{
+		//Moves the enemy
+		for (int i = 0; i < enemies.size(); i++)
+		{
+			Opponent enemy = enemies.get(i);
+			
+			// Checks if the enemy is in range of the player and initiates it to chase
+			if(enemy.isInRangeOfPlayer(player.getX(), player.getY()))
+			{
+				enemy.generatePlayerDirection(player.getX() + player.getWidth()/2, player.getY() + player.getHeight()/2);
+			}
+			
+			// Toggle the move status if the time passed exceeds the movement time threshold
+			if(currentTime - enemy.getMovementTimeStamp() >= enemy.getMoveDuration())
+			{
+				enemy.setMovementTimeStamp(currentTime);
+				enemy.toggleMoving(); // Alternates the enemy between moving and pausing
+				if(enemy.isMoving())
+				{
+					enemy.generateMoveDirection();
+				}
+			}
+			
+			// Move the enemies if they are within range of player or they are set to move.
+			if(enemy.isMoving()||enemy.isInRangeOfPlayer(player.getX(), player.getY()))
+			{
+				enemy.move();
+			}
+		}
 	}
 }
