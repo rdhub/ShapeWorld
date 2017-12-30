@@ -39,25 +39,25 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 		this.map = map;
 		this.coin = coin;
 		
-		hpButton = new JButton("Health + 5");
-		hpButton.setBounds(520, 320, 110, 20);
-		hpButton.addActionListener(this);
-		this.add(hpButton);
+		//~ hpButton = new JButton("Health + 5");
+		//~ hpButton.setBounds(520, 320, 110, 20);
+		//~ hpButton.addActionListener(this);
+		//~ this.add(hpButton);
 		
-		atkButton = new JButton("Damage + 1");
-		atkButton.setBounds(520, 365, 110, 20);
-		atkButton.addActionListener(this);
-		this.add(atkButton);
+		//~ atkButton = new JButton("Damage + 1");
+		//~ atkButton.setBounds(520, 365, 110, 20);
+		//~ atkButton.addActionListener(this);
+		//~ this.add(atkButton);
 		
-		wepButton = new JButton("Weapon + 1");
-		wepButton.setBounds(520, 410, 110, 20);
-		wepButton.addActionListener(this);
-		this.add(wepButton);
+		//~ wepButton = new JButton("Weapon + 1");
+		//~ wepButton.setBounds(520, 410, 110, 20);
+		//~ wepButton.addActionListener(this);
+		//~ this.add(wepButton);
 		
-		afButton = new JButton("Autofire");
-		afButton.setBounds(520, 455, 110, 20);
-		afButton.addActionListener(this);
-		this.add(afButton);
+		//~ afButton = new JButton("Autofire");
+		//~ afButton.setBounds(520, 455, 110, 20);
+		//~ afButton.addActionListener(this);
+		//~ this.add(afButton);
 		
 		this.addKeyListener(this);
 		this.addMouseMotionListener(this);
@@ -77,17 +77,16 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 		//Draws the player
 		g.setColor(Color.black);
 		g.fillRect(player.getX(), player.getY(), player.getWidth(), player.getHeight());
-		
-		
-		
+		//~ System.out.println(player.getX() + "\t" + player.getY());
+		//~ System.out.println("map coords: " + -1*(game.getMapX()+4750) + "\t" + -1*(game.getMapY()+4750));
 		//Draws the shots fired from the player
 		for (int i = 0; i < game.getNumberOfShots(); i++)
 		{
 			int shotX = game.getShotX(i);
 			int shotY = game.getShotY(i);
-			
+			int shotSize = game.getShotSize(i);
 			g.setColor(Color.blue);
-			if(game.isOnScreen(shotX, shotY)) // Only draws the shot if it's on screen
+			if(game.isOnScreen(shotX, shotY, shotSize, shotSize)) // Only draws the shot if it's on screen
 				g.fillOval(shotX, shotY, 10, 10);
 		}
 		
@@ -96,18 +95,19 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 		{
 			int enemyX = game.getEnemy(i).getX();
 			int enemyY = game.getEnemy(i).getY();
-			
+			int enemyWidth = game.getEnemy(i).getWidth();
+			int enemyHeight = game.getEnemy(i).getHeight();
 			g.setColor(Color.red);
-			if(game.isOnScreen(enemyX, enemyY)) // Only draws the enemy if it's on screen
+			if(game.isOnScreen(enemyX, enemyY, enemyWidth, enemyHeight)) // Only draws the enemy if it's on screen
 				g.fillRect(enemyX, enemyY, 20, 20);
 		}
 		
 		
-		// Draws the right side upgrade panel
-		g.setColor(Color.white);
-		g.fillRect(505,0,195,500);
-		g.setColor(Color.black);
-		g.fillRect(500,0,5,500);
+		//~ // Draws the right side upgrade panel
+		//~ g.setColor(Color.white);
+		//~ g.fillRect(505,0,195,500);
+		//~ g.setColor(Color.black);
+		//~ g.fillRect(500,0,5,500);
 	}
 	
 	
@@ -115,16 +115,15 @@ public class GameArea extends JPanel implements ActionListener, KeyListener, Mou
 		 
 		//Checks which direction player is currently moving in
 		if(moveUp)
-			game.updateCoords(0, 2);
+			game.updateCoords(0, 4);
 		if(moveDown)
-			game.updateCoords(0, -2);
+			game.updateCoords(0, -4);
 		if(moveLeft)
-			game.updateCoords(2, 0);
+			game.updateCoords(4, 0);
 		if(moveRight)
-			game.updateCoords(-2, 0);
+			game.updateCoords(-4, 0);
 		
 		game.moveEnemies(e.getWhen());
-		
 		
 		if(firingStatus && e.getWhen() - time_when_shot_fired >= player.getWepReloadSpeed())
 		{

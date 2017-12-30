@@ -1,7 +1,7 @@
 public class Opponent
 {
 	private int maxHp, remainingHp, attack;
-	private int hitBox;
+	private int hitBox, width, height;
 	private double xPos, yPos;
 	private double moveDx, moveDy;
 	private int moveDuration;
@@ -21,6 +21,7 @@ public class Opponent
 		moveDx = moveDy = 0;
 		xPos = yPos = 100;
 		hitBox = 20;
+		width = height = 20;
 		maxHp = 0;
 		remainingHp = 0;
 		attack = 0;
@@ -37,6 +38,15 @@ public class Opponent
 		yPos = initialYPos;
 	}
 	
+	public int getWidth()
+	{
+		return width;
+	}
+	
+	public int getHeight()
+	{
+		return height;
+	}
 	public void setX(double x)
 	{
 		xPos = x;
